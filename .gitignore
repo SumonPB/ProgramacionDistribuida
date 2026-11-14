@@ -1,0 +1,22 @@
+# Gradle / Build
+.gradle/
+build/
+bin/
+target/
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# Sistema Operativo
+.DS_Store
+Thumbs.db
+*~
+
+# Logs
+logs/
+*.log
+.env
