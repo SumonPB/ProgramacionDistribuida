@@ -27,10 +27,13 @@ dependencies {
     implementation("io.quarkus:quarkus-jdbc-postgresql")
     //REST
     implementation("io.quarkus:quarkus-rest")
+
     //JSON
     implementation("io.quarkus:quarkus-rest-jsonb")
 
-
+    // Rest Client
+    implementation("io.quarkus:quarkus-rest-client-jsonb")
+    implementation("io.quarkus:quarkus-rest-client")
 }
 
 tasks.withType<JavaCompile> {

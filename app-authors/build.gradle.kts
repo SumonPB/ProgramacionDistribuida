@@ -30,7 +30,6 @@ dependencies {
     //JSON
     implementation("io.quarkus:quarkus-rest-jsonb")
 
-
 }
 
 tasks.withType<JavaCompile> {
