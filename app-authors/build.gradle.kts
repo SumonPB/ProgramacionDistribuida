@@ -29,6 +29,10 @@ dependencies {
     implementation("io.quarkus:quarkus-rest")
     //JSON
     implementation("io.quarkus:quarkus-rest-jsonb")
+    //control de cambios
+    implementation("io.quarkus:quarkus-flyway")
+    runtimeOnly("org.flywaydb:flyway-database-postgresql:13.12.2")
+
 
 }
 

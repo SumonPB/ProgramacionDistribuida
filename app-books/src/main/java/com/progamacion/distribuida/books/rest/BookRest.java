@@ -1,7 +1,10 @@
 package com.progamacion.distribuida.books.rest;
 
 import com.progamacion.distribuida.books.db.Book;
+import com.progamacion.distribuida.books.dtos.BookDto;
 import com.progamacion.distribuida.books.repo.BookRespository;
+import com.progamacion.distribuida.books.services.impl.BoockServiceImpl;
+import com.progamacion.distribuida.books.services.interfaces.BookService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -13,25 +16,23 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class BookRest {
-    final BookRespository bookRespository;
+    final BookService bookRespository;
+
 
     @Inject
-    public BookRest(BookRespository bookRespository){
+    public BookRest(BoockServiceImpl bookRespository){
         this.bookRespository = bookRespository;
     }
 
     @GET
-    public List<Book> findAll(){
-        System.out.println("Aqui");
-        return  bookRespository.listAll();
+    public List<BookDto> findAll(){
+        return  bookRespository.findAll();
     }
-
-    @GET
-    @Path("/{isbn}")
-    public Response getById(@PathParam("isbn") String isbn){
-        return bookRespository.findByIdOptional(isbn)
-                .map(author -> Response.ok(author).build())
-                .orElse(Response.status(Response.Status.NOT_FOUND).build());
-    }
+//
+//    @GET
+//    @Path("/{isbn}")
+//    public Response getById(@PathParam("isbn") String isbn){
+//        return bookRespository.findByOptional(isbn);
+//    }
 
 }
