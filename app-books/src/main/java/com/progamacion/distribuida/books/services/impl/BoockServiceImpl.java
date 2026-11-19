@@ -1,12 +1,15 @@
 package com.progamacion.distribuida.books.services.impl;
 
+import com.progamacion.distribuida.books.clients.AuthorRestClient;
 import com.progamacion.distribuida.books.db.Book;
+import com.progamacion.distribuida.books.dtos.AuthorDto;
 import com.progamacion.distribuida.books.dtos.BookDto;
 import com.progamacion.distribuida.books.repo.BookRespository;
 import com.progamacion.distribuida.books.services.interfaces.BookService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.util.List;
 
@@ -14,10 +17,12 @@ import java.util.List;
 @Transactional
 public class BoockServiceImpl implements BookService {
     final BookRespository bookRespository;
+    final AuthorRestClient authorRestClient;
 
     @Inject
-    public BoockServiceImpl(BookRespository bookRespository) {
+    public BoockServiceImpl(BookRespository bookRespository, @RestClient AuthorRestClient authorRestClient) {
         this.bookRespository = bookRespository;
+        this.authorRestClient = authorRestClient;
     }
 
     private BookDto toDTo(Book book){
@@ -31,11 +36,25 @@ public class BoockServiceImpl implements BookService {
     }
 
     public List<BookDto> findAll() {
-        return bookRespository.streamAll().map(this::toDTo).toList();
+
+        return bookRespository.streamAll()
+                .map(this::toDTo)
+                .peek(it->{
+                    var authors = authorRestClient.findByBook(it.getIsbn());
+                    it.setAuthors(authors);
+                })
+                .toList();
     }
 
     public BookDto findByOptional(String isbn) {
-        return bookRespository.findByIdOptional(isbn).map(this::toDTo).orElse(null);
+        List<AuthorDto> authors = authorRestClient.findByBook(isbn);
+        return bookRespository.findByIdOptional(isbn)
+                .map(this::toDTo)
+                .map(it->{
+                    it.setAuthors(authors);
+                    return it;
+                }).orElse(null);
+
     }
 
 }
