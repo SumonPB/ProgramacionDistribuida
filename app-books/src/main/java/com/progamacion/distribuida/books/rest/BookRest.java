@@ -28,11 +28,11 @@ public class BookRest {
     public List<BookDto> findAll(){
         return  bookRespository.findAll();
     }
-//
-//    @GET
-//    @Path("/{isbn}")
-//    public Response getById(@PathParam("isbn") String isbn){
-//        return bookRespository.findByOptional(isbn);
-//    }
+
+    @GET
+    @Path("/{isbn}")
+    public BookDto getById(@PathParam("isbn") String isbn){
+        return bookRespository.findByIsbn(isbn);
+    }
 
 }

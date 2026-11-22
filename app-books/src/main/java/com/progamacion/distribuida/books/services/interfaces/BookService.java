@@ -8,5 +8,5 @@ public interface BookService {
 
      List<BookDto> findAll();
 
-     BookDto findByOptional(String isbn);
+     BookDto findByIsbn(String isbn);
 }

@@ -31,7 +31,7 @@ public class BoockServiceImpl implements BookService {
                 .title(book.getTitle())
                 .price(book.getPrice())
                 .inventorySold(book.getInventory()!=null ? book.getInventory().getSold() : null)
-                .inventorySupplier(book.getInventory()!=null ? book.getInventory().getSupplier() : null)
+                .inventorySupplier(book.getInventory()!=null ? book.getInventory().getSupplied() : null)
                 .build();
     }
 
@@ -46,7 +46,7 @@ public class BoockServiceImpl implements BookService {
                 .toList();
     }
 
-    public BookDto findByOptional(String isbn) {
+    public BookDto findByIsbn(String isbn) {
         List<AuthorDto> authors = authorRestClient.findByBook(isbn);
         return bookRespository.findByIdOptional(isbn)
                 .map(this::toDTo)

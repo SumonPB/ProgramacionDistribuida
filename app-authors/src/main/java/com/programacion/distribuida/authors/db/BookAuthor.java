@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @Entity
-@Table(name = "book_author")
+@Table(name = "books_authors")
 @ToString
 public class BookAuthor {
     @EmbeddedId

@@ -24,6 +24,6 @@ public class Inventory implements Serializable {
 
     private Integer sold;
 
-    @Column(name = "supplier")
-    private Integer supplier;
+    @Column(name = "supplied")
+    private Integer supplied;
 }
