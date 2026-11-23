@@ -10,8 +10,8 @@ import java.util.List;
 @Path("/authors")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@RegisterRestClient(baseUri = "http://localhost:8070")
-//@RegisterRestClient(configKey = "AuthorsRestClient")
+//@RegisterRestClient(baseUri = "http://localhost:8070")
+@RegisterRestClient(configKey = "AuthorsRestClient")
 public interface AuthorRestClient {
 
 /*    @GET

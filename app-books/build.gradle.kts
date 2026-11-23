@@ -34,6 +34,10 @@ dependencies {
     // Rest Client
     implementation("io.quarkus:quarkus-rest-client-jsonb")
     implementation("io.quarkus:quarkus-rest-client")
+
+    //service Discovery
+    implementation("io.smallrye.reactive:smallrye-mutiny-vertx-consul-client")
+
 }
 
 tasks.withType<JavaCompile> {

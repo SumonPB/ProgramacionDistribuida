@@ -15,7 +15,7 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String version;
+    private Integer version;
 
     private  String name;
 
