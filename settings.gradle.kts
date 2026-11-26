@@ -4,3 +4,4 @@ rootProject.name = "progra_distribuida"
 //include("web03")
 include("app-authors")
 include("app-books")
+include("app-customers")

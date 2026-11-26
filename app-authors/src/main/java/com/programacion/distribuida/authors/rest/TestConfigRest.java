@@ -1,5 +1,9 @@
 package com.programacion.distribuida.authors.rest;
 
+import io.vertx.core.Vertx;
+import io.vertx.ext.consul.ConsulClient;
+import io.vertx.ext.consul.ConsulClientOptions;
+import io.vertx.ext.consul.Service;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -20,6 +24,9 @@ public class TestConfigRest {
 
     @ConfigProperty(name = "app.name")
     String diAppName;
+
+    @Inject
+    Vertx vertx;
 
 
     @GET
@@ -49,5 +56,27 @@ public class TestConfigRest {
 
     return "";
 }
+
+@GET
+    @Path("/test2")
+    public String testVertx(){
+    ConsulClientOptions options = new ConsulClientOptions()
+            .setHost("127.0.0.1").setPort(8500);
+    ConsulClient client = ConsulClient.create(vertx,options);
+    var response = client.catalogServiceNodes("app-authors");
+    response.onComplete(it->{
+        if(it.succeeded()){
+            System.out.println("Service nodes: "+it.result().getList().size()+"Services");
+            for (Service service : it.result().getList()){
+                System.out.println("Service node: "+service.getNode());
+                System.out.println("Service Address: "+service.getAddress());
+                System.out.println("Service Port: "+service.getPort());
+            }
+
+        }
+    });
+        return "";
+    }
+
 
 }
